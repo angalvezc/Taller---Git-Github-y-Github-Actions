@@ -32,5 +32,12 @@ def mostrar_estudiantes_tabla(estudiantes):
     for est in estudiantes_ordenados:
         print("{:<20} {:>5.2f}".format(est["Nombre"], est["Nota"]))
 
+def calcular_promedio(estudiantes):
+    if estudiantes:
+        total_notas = sum(est["Nota"] for est in estudiantes)
+        promedio = total_notas / len(estudiantes)
+        print(f"\nPromedio general de las notas: {promedio:.2f}")
+    else:
+        print("\nNo hay estudiantes para calcular el promedio.")
 
 
