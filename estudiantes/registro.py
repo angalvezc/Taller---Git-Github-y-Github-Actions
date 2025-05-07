@@ -1,17 +1,23 @@
 import csv
+def cargar_estudiantes(nombre_archivo):
+    estudiantes_validos = []
 
-def importarCsv():
-    datos = []
-    with open('estudiantes.csv', mode='r') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            row[1] = float(row[1])
-            if row[1] < 0 or row[1] > 5:
-                print("Las notas deben estar entre 0 y 5")
-            else:
-                datos.append(row)
-    
-    print(datos)
-    return datos
+    with open(nombre_archivo, newline='', encoding='utf-8') as archivo_csv:
+        lector = csv.DictReader(archivo_csv)
+        for fila in lector:
+            try:
+                nota = float(fila["Nota"])
+                if 0.0 <= nota <= 5.0:
+                    estudiantes_validos.append({
+                        "Nombre": fila["Nombre"],
+                        "Nota": nota
+                    })
+                else:
+                    print(f"Nota fuera de rango para {fila['Nombre']}: {nota}")
+            except ValueError:
+                print(f"Nota inválida para {fila['Nombre']}: {fila['Nota']}")
 
-importarCsv()
+    return estudiantes_validos
+
+
+
